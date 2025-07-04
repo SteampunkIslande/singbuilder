@@ -49,18 +49,19 @@ mkdir -p "$SIF_DIR"
 # Generate Singularity definition file
 cat > "$DEF_FILE" <<EOF
 Bootstrap: docker
-From: continuumio/miniconda3
+From: mambaorg/micromamba
 
 %files
     $ENV_FILE /environment.yml
 
 %post
-    conda env create -f /environment.yml
-    conda clean -afy
+    micromamba env create -f /environment.yml
+    micromamba clean -afy
+    micromamba shell init -s bash --root-prefix /opt/micromamba
 
 %environment
-    source /opt/conda/etc/profile.d/conda.sh
-    conda activate \`head -1 /environment.yml | cut -d' ' -f2\`
+    source /opt/micromamba/etc/profile.d/mamba.sh
+    micromamba activate \`head -1 /environment.yml | cut -d' ' -f2\`
 
 %runscript
     /bin/bash
