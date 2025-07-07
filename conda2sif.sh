@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Usage: ./conda2sif.sh <env_file.yml> <def_output_dir> <sif_output_dir> <image_name>
-
 set -e
 
 # Parse arguments using getopts for user-friendly CLI
